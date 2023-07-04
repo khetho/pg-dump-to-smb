@@ -1,5 +1,6 @@
 # PostgreSQL Dump to Samba Share
 pg-dump-to-smb can be used to create a backup of a Postgres database  and upload the backup to an Samba server.
+The backup file will be in tar.gz format, with the format {database name}-backup-YYYY_MM_DD_HH_MI_AM.tar.gz and will be uploaded to the smb share specified.
 
 It can be used to back up databases in AWS RDS to Azure Storage using AWS Batch. The following links may be of use
 
@@ -19,3 +20,9 @@ The following variables are requied:
 | SHARE         | Samba share                   |
 | USER          | Samba user                    |
 | PASSWD        | Samba password                |
+
+When building the the image for AWS do so for the linux/amd64 architecture otherwise you will get an "exec format error"
+
+```
+pg-dump-to-smb % docker build --platform=linux/amd64  -t  "khetho/pg-dump-to-smb" .
+```

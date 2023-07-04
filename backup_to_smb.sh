@@ -1,5 +1,4 @@
 #!/bin/bash
-export PGBACKUPFILE="nottodb-backup-$(date +"%Y_%m_%d_%I_%M_%p").tar.gz"
 
 if [ -z "$PGHOST" ]; then
   echo "Missing Postgres database host name, provide -e PGHOST=host"
@@ -35,6 +34,8 @@ if [ -z "$PASSWD" ]; then
   echo "Missing Samba password, provide -e PASSWD=password"
   exit 7
 fi
+
+export PGBACKUPFILE="$PGDATABASE-backup-$(date +"%Y_%m_%d_%I_%M_%p").tar.gz"
 
 yum update -y
 yum install postgresql15 postgresql15-contrib gzip samba-client cifs-utils -y

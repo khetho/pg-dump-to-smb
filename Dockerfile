@@ -20,5 +20,4 @@ RUN yum install postgresql15 postgresql15-contrib gzip samba-client cifs-utils -
 COPY ./backup_to_smb.sh /
 RUN chmod +x /backup_to_smb.sh
 # Set the entrypoint to the script with CMD arguments
-ENTRYPOINT ["/backup_to_smb.sh"]
-CMD [""]
+ENTRYPOINT ["./backup_to_smb.sh"]
