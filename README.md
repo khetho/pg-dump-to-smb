@@ -23,6 +23,23 @@ The following variables are requied:
 
 When building the the image for AWS do so for the linux/amd64 architecture otherwise you will get an "exec format error"
 
-```
+```shell
 pg-dump-to-smb % docker build --platform=linux/amd64  -t  "khetho/pg-dump-to-smb" .
 ```
+
+# Testing the Backup
+
+To test a backup dbname-backup-YYYY_MM_DD_HH_MI_AM.tar.gz first gunzip it to get the tar file which you can use as input to pg_restore
+
+```shell
+gunzip dbname-backup-YYYY_MM_DD_HH_MI_AM.tar.gz
+pg_restore -h host -p 5432 -U user -d dbname -OcC dbname-backup-YYYY_MM_DD_HH_MI_AM.tar
+```
+Docker can be used to create a temporary PostgreSQL database for testing as per below
+
+```shell
+docker run  --name dbname  -p 5432:5432 -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=dbname -d postgres
+```
+
+Make sure to specify parameters as per your requirements.
+
